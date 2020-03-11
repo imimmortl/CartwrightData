@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "CartwrightData", "CartwrightData\CartwrightData.dtproj", "{7E79CD03-A0E4-4B42-BCAD-BF1C3168C29C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E79CD03-A0E4-4B42-BCAD-BF1C3168C29C}.Development|Default.ActiveCfg = Development
+		{7E79CD03-A0E4-4B42-BCAD-BF1C3168C29C}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FF0A41F-D454-4727-BCE9-2A1A7E7E25C5}
+	EndGlobalSection
+EndGlobal

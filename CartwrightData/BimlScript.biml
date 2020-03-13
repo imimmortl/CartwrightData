@@ -1,0 +1,1751 @@
+﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <Connection Name="BOPSSQL16-01.tbdr_stats" ConnectionString="Data Source=BOPSSQL16-01;Initial Catalog=tbdr_stats;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{C5B5FFB5-0849-4369-9638-B59C52E65D45}BOPSSQL16-01.tbdr_stats;" />
+        <AdoNetConnection Name="Cartwright_MYSQL(UNUSED)" ConnectionString="server=10.5.130.82;user id=root;database=ncaa_warehouse;port=3306;persistsecurityinfo=True;connectiontimeout=30;protocol=Socket;connectionreset=False;" Provider="MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+        <AdoNetConnection Name="Cartwright_ODBC" ConnectionString="server=10.5.130.82;uid=root;Dsn=Cartwright;database=ncaa_warehouse;port=3306;" Provider="System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+        <FlatFileConnection Name="CollegeFielderGameLog" DelayValidation="true" FilePath="\\bops-rp12\Uploads\CollegeFielderLogTMD.csv" FileFormat="CollegeFielderGameLog" />
+        <FlatFileConnection Name="CollegeFielderLogUC" FilePath="\\bops-rp12\Uploads\CollegeFielderLogUCTMD.csv" FileFormat="CollegeFielderLogUC" />
+        <FlatFileConnection Name="CollegeFielderSeason" FilePath="\\bops-rp12\Uploads\CollegeFielderSeasonTMD.csv" FileFormat="CollegeFielderSeason" />
+        <FlatFileConnection Name="CollegeFielderSeasonUC" FilePath="\\bops-rp12\Uploads\CollegeFielderSeasonUCTMD.csv" FileFormat="CollegeFielderSeasonUC" />
+        <FlatFileConnection Name="CollegeHitterGameLog" FilePath="\\bops-rp12\Uploads\CollegeHitterLogTMD.csv" FileFormat="CollegeHitterGameLog" />
+        <FlatFileConnection Name="CollegeHitterLogUC" FilePath="\\bops-rp12\Uploads\CollegeHitterLogUCTMD.csv" FileFormat="CollegeHitterLogUC" />
+        <FlatFileConnection Name="CollegeHitterSeason" FilePath="\\bops-rp12\Uploads\CollegeHitterSeasonTMD.csv" FileFormat="CollegeHitterSeason" />
+        <FlatFileConnection Name="CollegeHitterSeasonUC" FilePath="\\bops-rp12\Uploads\CollegeHitterSeasonUCTMD.csv" FileFormat="CollegeHitterSeasonUC" />
+        <FlatFileConnection Name="CollegePitcherGameLog" FilePath="\\bops-rp12\Uploads\CollegePitcherLogTMD.csv" FileFormat="CollegePitcherGameLog" />
+        <FlatFileConnection Name="CollegePitcherLogUC" FilePath="\\bops-rp12\Uploads\CollegePitcherLogUCTMD.csv" FileFormat="CollegePitcherLogUC" />
+        <FlatFileConnection Name="CollegePitcherSeason" FilePath="\\bops-rp12\Uploads\CollegePitcherSeasonTMD.csv" FileFormat="CollegePitcherSeason" />
+        <FlatFileConnection Name="CollegePitcherSeasonUC" FilePath="\\bops-rp12\Uploads\CollegePitcherSeasonUCTMD.csv" FileFormat="CollegePitcherSeasonUC" />
+        <AdoNetConnection Name="UC_MYSQLTEST" DelayValidation="true" ConnectionString="server=ror-dev-06;user id=&quot;&apos;root&apos;@&apos;ror-dev-06&apos; &quot;;port=3306;database=unclecharlie_development;persistsecurityinfo=True;connectiontimeout=60;protocol=Socket;" Provider="MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    </Connections>
+    <Packages>
+        <Package Name="CartwrightData" Language="None" ProtectionLevel="EncryptSensitiveWithUserKey">
+            <Events>
+                <Event Name="OnError" EventType="OnError" />
+            </Events>
+            <Variables>
+                <Variable Name="BatterLog" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] +  @[$Project::HitterGameLog]</Variable>
+                <Variable Name="BatterSeason" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] + @[$Project::HitterSeason]</Variable>
+                <Variable Name="CollegeFielderLogUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT     id, amateur_player_partial_id, oliver_id, amateur_player_id, amateur_team_id, ebis_id, name, 
+convert(varchar,game_date,23) as game_date,
+game_number, conference, team, opponent_team_id, opponent, g, 
+gs, tc, po, a, e, ci, pb, sb, cs, sba, cs_pct, dp, tp, gp_p, gp_c, gp_b1, gp_b2, gp_b3, gp_ss, gp_if, gp_mif, gp_cif, gp_lf, gp_cf, gp_rf, gp_cof, gp_dh, gp_ph, gp_pr,[avg], 
+source, source_player_id, source_url, level
+FROM         college_fielder_logs
+where gameyear = &quot;+  @[$Project::CurrentYear]</Variable>
+                <Variable Name="CollegeFielderSeasonUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT     id, amateur_player_partial_id, oliver_id,  amateur_player_id, amateur_team_id, ebis_id, name, roster_year, conference, team, level, g, gs, tc, po, a, e, ci, pb, sb, cs, sba, cs_pct, 
+dp, tp, gp_p, gp_c, gp_b1, gp_b2, gp_b3, gp_ss, gp_if, gp_mif, gp_cif, gp_lf, gp_cf, gp_rf, gp_cof, gp_dh, gp_ph, gp_pr, [avg], 
+source, source_player_id, source_url
+FROM         college_fielder_seasons
+where roster_year = &quot; +  @[$Project::CurrentYear]</Variable>
+                <Variable Name="CollegeHitterLogUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT     id, amateur_player_partial_id, oliver_id, amateur_player_id, amateur_team_id, ebis_id, name,convert(varchar,game_date,23) as game_date, 
+game_number, conference, team, level, opponent_team_id, 
+opponent, opponent_pitcher_id, opponent_pitcher, g, gs, pa, ab, r, h, b1, b2, b3, hr, tb, xbh, rbi, bb, ibb, uibb, so, so_swing, so_look, hbp, sf, sh, dp, sb, cs, sba, 
+sb_net, sb_pct, pickoff, pitches, gb, fb, ld, pu, [avg], obp, slg, ops, iso, woba, babip, bacon, avg_ytd, obp_ytd, slg_ytd, ops_ytd, iso_ytd, woba_ytd, babip_ytd, 
+bacon_ytd, p_pa, ab_pct, bb_pct, ibb_pct, uibb_pct, so_pct, so_swing_pct, so_look_pct, hbp_pct, h_pct, hr_pct, b1_pct, b2_pct, b3_pct, b2_b3_pct, xbh_pct, sf_pct, 
+sh_pct, source, source_player_id, source_url
+FROM         college_hitter_logs
+where gameyear = &quot; +  @[$Project::CurrentYear]</Variable>
+                <Variable Name="CollegeHitterSeasonUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT     id, amateur_player_partial_id, oliver_id, amateur_player_id, amateur_team_id, ebis_id, name, roster_year, conference, team, level, g, gs, pa, ab, r, h, b1, b2, b3, hr, tb, xbh, rbi, 
+                      bb, ibb, uibb, so, so_swing, so_look, hbp, sf, sh, dp, sb, cs, sba, sb_net, sb_pct, pickoff, pitches, gb, fb, ld, pu, [avg], obp, slg, ops, iso, woba, babip, bacon, hr_fb, 
+                      p_pa, ab_pct, bb_pct, ibb_pct, uibb_pct, so_pct, so_swing_pct, so_look_pct, hbp_pct, h_pct, b1_pct, b2_pct, b3_pct, b2_b3_pct, hr_pct, xbh_pct, sf_pct, sh_pct, 
+                      so_plus, bb_plus, hr_plus, b2_b3_plus, bacon_plus, source, source_player_id, source_url
+
+FROM         college_hitter_seasons
+where roster_year = &quot; +  @[$Project::CurrentYear]</Variable>
+                <Variable Name="CollegePitcherLogUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT id,
+       source,
+       source_player_id,
+       amateur_player_partial_id,
+       oliver_id,
+       amateur_player_id,
+       amateur_team_id,
+       ebis_id,
+       name,
+       convert(varchar,game_date,23) as game_date,
+       game_number,
+       conference,
+       team,
+       LEVEL,
+       opponent_team_id,
+       opponent,
+       g,
+       gs,
+       gr,
+       cg,
+       sho,
+       ip,
+       tbf,
+       ab,
+       h,
+       b1,
+       b2,
+       b3,
+       hr,
+       tb,
+       xbh,
+       r,
+       er,
+       outs,
+       bb,
+       ibb,
+       uibb,
+       so,
+       so_swing,
+       so_look,
+       bk,
+       wp,
+       hbp,
+       sf,
+       sh,
+       inh_run,
+       inh_score,
+       inh_score_pct,
+       pitches,
+       gb,
+       fb,
+       ld,
+       pu,
+       GO,
+       fo,
+       go_fo,
+       hr_fb,
+       era,
+       ra,
+       p_pa,
+       ab_pct,
+       bb_pct,
+       ibb_pct,
+       uibb_pct,
+       so_pct,
+       so_swing_pct,
+       so_look_pct,
+       hbp_pct,
+       outs_pct,
+       h_pct,
+       hr_pct,
+       b1_pct,
+       b2_pct,
+       b3_pct,
+       b2_b3_pct,
+       xbh_pct,
+       sf_pct,
+       sh_pct,
+       avg,
+       obp,
+       slg,
+       iso,
+       woba,
+       babip,
+       bacon,
+       avg_ytd,
+       obp_ytd,
+       slg_ytd,
+       ops_ytd,
+       iso_ytd,
+       woba_ytd,
+       babip_ytd,
+       bacon_ytd,
+       days_rest,
+       w,
+       l,
+       sv,
+       source_url
+FROM         college_pitcher_logs
+where gameyear = &quot; + @[$Project::CurrentYear]</Variable>
+                <Variable Name="CollegePItcherSeasonUC" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;SELECT     null id, amateur_player_partial_id, oliver_id, amateur_player_id, amateur_team_id, ebis_id, name, roster_year, conference, team, level, g, gs, gr, cg, sho, ip, tbf, ab, h, b1, b2, b3, 
+                      hr, tb, xbh, r, er, outs, bb, ibb, uibb, so, so_swing, so_look, bk, wp, hbp, sf, sh, inh_run, inh_score, inh_score_pct, pitches, gb, fb, ld, pu, go, fo, go_fo, hr_fb, era, ra, 
+                      p_pa, ab_pct, bb_pct, ibb_pct, uibb_pct, so_pct, so_swing_pct, so_look_pct, hbp_pct, outs_pct, h_pct, hr_pct, b1_pct, b2_pct, b3_pct, b2_b3_pct, xbh_pct, sf_pct, 
+                      sh_pct, [avg], obp, slg, iso, woba, babip, bacon, so_plus, bb_plus, w, l, sv, source, source_player_id, source_url
+from college_pitcher_seasons
+where roster_year = &quot; + @[$Project::CurrentYear]</Variable>
+                <Variable Name="FielderLog" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] + @[$Project::FielderGameLog]</Variable>
+                <Variable Name="FielderSeason" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] + @[$Project::FielderSeason]</Variable>
+                <Variable Name="PitcherLog" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] +  @[$Project::PitcherGameLog]</Variable>
+                <Variable Name="PitcherSeason" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">@[$Project::BaseDirectory] + @[$Project::PitcherSeason]</Variable>
+                <Variable Name="RunTime" DataType="DateTime" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">GETDATE()</Variable>
+                <Variable Name="UpdateIDs" DataType="String" IncludeInDebugDump="Exclude" EvaluateAsExpression="true">&quot;update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_hitter_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = &quot; +  @[$Project::CurrentYear] +
+&quot; update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_hitter_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where map.roster_year = &quot; +  @[$Project::CurrentYear] +
+&quot; update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_pitcher_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = &quot; +  @[$Project::CurrentYear] +
+&quot; update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_pitcher_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where c.roster_year = &quot; +  @[$Project::CurrentYear] +
+&quot; update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_fielder_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = &quot; +  @[$Project::CurrentYear] +
+&quot; update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_fielder_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where c.roster_year = &quot; +  @[$Project::CurrentYear]</Variable>
+            </Variables>
+            <Tasks>
+                <ExecuteSQL Name="IMPORT TEST" Disabled="true" ConnectionName="Cartwright_MYSQL(UNUSED)">
+                    <DirectInput>LOAD DATA INFILE &apos;C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/deleteme.txt&apos; 
+INTO TABLE DELETEME 
+FIELDS TERMINATED BY &apos;\t&apos; 
+ENCLOSED BY &apos;&quot;&apos;
+LINES TERMINATED BY &apos;\n&apos;
+IGNORE 1 ROWS;</DirectInput>
+                </ExecuteSQL>
+                <ExecuteSQL Name="DeleteCurrentYear" Disabled="true" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                    <Expressions>
+                        <Expression ExternalProperty="SqlStatementSource">&quot;delete from college_pitcher_seasons where roster_year = &quot; + @[$Project::CurrentYear] + &quot; delete from college_pitcher_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot; delete from college_hitter_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot;  delete from college_hitter_seasons where roster_year = &quot; + @[$Project::CurrentYear] + &quot;delete from college_fielder_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot; delete from college_fielder_seasons where roster_year = &quot; + @[$Project::CurrentYear]</Expression>
+                    </Expressions>
+                    <DirectInput>delete from college_pitcher_seasons where roster_year = 2020 delete from college_pitcher_logs where gameyear = 2020 delete from college_hitter_logs where gameyear = 2020  delete from college_hitter_seasons where roster_year = 2020delete from college_fielder_logs where gameyear = 2020 delete from college_fielder_seasons where roster_year = 2020</DirectInput>
+                </ExecuteSQL>
+                <Container Name="Import CSV Files" Disabled="true">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="DeleteCurrentYear.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <Tasks>
+                        <Dataflow Name="CollegePitcherSeason">
+                            <Transformations>
+                                <FlatFileSource Name="CollegePitcherSeason" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegePitcherSeason" />
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::PitcherSeason]</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="LEVEL" TargetColumn="level" />
+                                        <Column SourceColumn="GO" TargetColumn="go" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_pitcher_seasons]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegePitcherGameLog">
+                            <Transformations>
+                                <FlatFileSource Name="CollegePitcherGameLog" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegePitcherGameLog">
+                                    <DataflowOverrides>
+                                        <OutputPath OutputPathName="Output">
+                                            <Columns>
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="source" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="source_player_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="amateur_player_partial_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="oliver_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="amateur_player_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="amateur_team_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ebisid" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="name" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="game_date" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="game_number" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="conference" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="team" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="level" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="opponent_team_id" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="opponent" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="g" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="gs" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="gr" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="cg" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sho" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ip" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="tbf" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ab" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="h" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b1" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b2" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b3" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="hr" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="tb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="xbh" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="r" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="er" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="outs" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="bb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ibb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="uibb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so_swing" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so_look" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="bk" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="wp" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="hbp" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sf" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sh" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="inh_run" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="inh_score" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="inh_score_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="pitches" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="gb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="fb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ld" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="pu" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="GO" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="fo" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="go_fo" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="hr_fb" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="era" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ra" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="p_pa" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ab_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="bb_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ibb_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="uibb_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so_swing_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="so_look_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="hbp_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="outs_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="h_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="hr_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b1_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b2_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b3_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="b2_b3_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="xbh_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sf_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sh_pct" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="avg" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="obp" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="slg" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="iso" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="woba" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="babip" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="bacon" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="avg_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="obp_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="slg_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="ops_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="iso_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="woba_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="babip_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="bacon_ytd" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="days_rest" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="w" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="l" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="sv" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="source_url" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="created_at" />
+                                                <Column ErrorRowDisposition="RedirectRow" TruncationRowDisposition="RedirectRow" ColumnName="updated_at" />
+                                            </Columns>
+                                        </OutputPath>
+                                    </DataflowOverrides>
+                                </FlatFileSource>
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::PitcherLog]</Column>
+                                        <Column Name="GameYear" DataType="Int32">YEAR(game_date)</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="GO" TargetColumn="go" />
+                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                        <Column SourceColumn="GameYear" TargetColumn="gameyear" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_pitcher_logs]" />
+                                </OleDbDestination>
+                                <ScriptComponentTransformation Name="Generate Error Description" ProjectCoreName="SC_363841f682ce4c63a4327d01fe32f71e">
+                                    <InputPath OutputPathName="CollegePitcherGameLog.Error" />
+                                    <ScriptComponentProjectReference ScriptComponentProjectName="SC_363841f682ce4c63a4327d01fe32f71e" />
+                                </ScriptComponentTransformation>
+                                <DerivedColumns Name="AddFileAndRunInformationForError">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::PitcherLog]</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="CollegePitcherGameLogERROR" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <ExternalTableOutput Table="[CollegePitcherGameLogERROR]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeHitterSeason" DelayValidation="true" DefaultBufferMaxRows="40000">
+                            <Transformations>
+                                <FlatFileSource Name="CollegeHitterSeason" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegeHitterSeason">
+                                    <DataflowOverrides>
+                                        <OutputPath OutputPathName="Output">
+                                            <Columns>
+                                                <Column ColumnName="id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="source" Length="255" />
+                                                <Column ColumnName="source_player_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="amateur_player_partial_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="oliver_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="amateur_player_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="amateur_team_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="ebis_id" DataType="Int32" Length="0" />
+                                                <Column ColumnName="name" Length="255" />
+                                                <Column ColumnName="roster_year" Length="255" />
+                                                <Column ColumnName="conference" Length="255" />
+                                                <Column ColumnName="team" Length="255" />
+                                                <Column ColumnName="LEVEL" Length="255" />
+                                                <Column ColumnName="g" DataType="Int32" Length="0" />
+                                                <Column ColumnName="gs" DataType="Int32" Length="0" />
+                                                <Column ColumnName="pa" DataType="Int32" Length="0" />
+                                                <Column ColumnName="ab" DataType="Int32" Length="0" />
+                                                <Column ColumnName="r" DataType="Int32" Length="0" />
+                                                <Column ColumnName="h" DataType="Int32" Length="0" />
+                                                <Column ColumnName="b1" DataType="Int32" Length="0" />
+                                                <Column ColumnName="b2" DataType="Int32" Length="0" />
+                                                <Column ColumnName="b3" DataType="Int32" Length="0" />
+                                                <Column ColumnName="hr" DataType="Int32" Length="0" />
+                                                <Column ColumnName="tb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="xbh" DataType="Int32" Length="0" />
+                                                <Column ColumnName="rbi" DataType="Int32" Length="0" />
+                                                <Column ColumnName="bb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="ibb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="uibb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="so" DataType="Int32" Length="0" />
+                                                <Column ColumnName="so_swing" DataType="Int32" Length="0" />
+                                                <Column ColumnName="so_look" DataType="Int32" Length="0" />
+                                                <Column ColumnName="hbp" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sf" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sh" DataType="Int32" Length="0" />
+                                                <Column ColumnName="dp" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="cs" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sba" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sb_net" DataType="Int32" Length="0" />
+                                                <Column ColumnName="sb_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="pickoff" DataType="Int32" Length="0" />
+                                                <Column ColumnName="pitches" DataType="Int32" Length="0" />
+                                                <Column ColumnName="gb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="fb" DataType="Int32" Length="0" />
+                                                <Column ColumnName="ld" DataType="Int32" Length="0" />
+                                                <Column ColumnName="pu" DataType="Int32" Length="0" />
+                                                <Column ColumnName="avg" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="obp" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="slg" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="ops" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="iso" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="woba" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="babip" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="bacon" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="hr_fb" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="p_pa" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="ab_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="bb_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="ibb_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="uibb_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="so_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="so_swing_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="so_look_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="hbp_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="h_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="b1_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="b2_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="b3_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="b2_b3_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="hr_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="xbh_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="sf_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="sh_pct" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="so_plus" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="bb_plus" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="hr_plus" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="b2_b3_plus" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="bacon_plus" DataType="Decimal" Length="0" Precision="0" Scale="0" />
+                                                <Column ColumnName="source_url" Length="255" />
+                                                <Column ColumnName="created_at" DataType="DateTime" Length="0" />
+                                                <Column ColumnName="updated_at" DataType="DateTime" Length="0" />
+                                            </Columns>
+                                        </OutputPath>
+                                    </DataflowOverrides>
+                                </FlatFileSource>
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::BatterSeason]</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="LEVEL" TargetColumn="level" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_hitter_seasons]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeHitterGameLog">
+                            <Transformations>
+                                <FlatFileSource Name="CollegeHitterGameLog" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegeHitterGameLog" />
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::BatterLog]</Column>
+                                        <Column Name="Gameyear" DataType="Int32">YEAR(game_date)</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="LEVEL" TargetColumn="level" />
+                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                        <Column SourceColumn="Gameyear" TargetColumn="gameyear" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_hitter_logs]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeFielderSeason">
+                            <Transformations>
+                                <FlatFileSource Name="CollegeFielderSeason" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegeFielderSeason" />
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::FielderSeason]</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="LEVEL" TargetColumn="level" />
+                                        <Column SourceColumn="G" TargetColumn="g" />
+                                        <Column SourceColumn="GS" TargetColumn="gs" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_fielder_seasons]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeFielderGameLog">
+                            <Transformations>
+                                <FlatFileSource Name="CollegeFielderGameLog" LocaleId="None" RetainNulls="true" FileNameColumnName="" ConnectionName="CollegeFielderGameLog" />
+                                <DerivedColumns Name="AddFileAndRunInformation">
+                                    <Columns>
+                                        <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
+                                        <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::FielderLog]</Column>
+                                        <Column Name="GameYear" DataType="Int32">YEAR(game_date)</Column>
+                                    </Columns>
+                                </DerivedColumns>
+                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                    <Columns>
+                                        <Column SourceColumn="LEVEL" TargetColumn="level" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
+                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
+                                        <Column SourceColumn="team_tx" TargetColumn="opponent" />
+                                        <Column SourceColumn="GameYear" TargetColumn="gameyear" />
+                                    </Columns>
+                                    <ExternalTableOutput Table="[dbo].[college_fielder_logs]" />
+                                </OleDbDestination>
+                            </Transformations>
+                        </Dataflow>
+                    </Tasks>
+                </Container>
+                <ExecuteSQL Name="Update IDs" Disabled="true" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                    <Expressions>
+                        <Expression ExternalProperty="SqlStatementSource">@[User::UpdateIDs]</Expression>
+                    </Expressions>
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="Import CSV Files.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <DirectInput>update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_hitter_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = 2020 update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_hitter_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where map.roster_year = 2020 update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_pitcher_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = 2020 update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_pitcher_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where c.roster_year = 2020 update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_fielder_logs c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.gameyear = map.roster_year
+where c.gameyear = 2020 update c 
+set c.amateur_player_id = map.amateur_player_id
+FROM college_fielder_seasons c 
+join amateur_source_player_mappings map
+on c.source = map.source
+and c.source_player_id = map.source_player_id
+and c.roster_year = map.roster_year
+where c.roster_year = 2020</DirectInput>
+                </ExecuteSQL>
+                <Container Name="Export For UC" Disabled="true">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="Update IDs.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <Tasks>
+                        <Dataflow Name="CollegePitcherSeasonUC">
+                            <Transformations>
+                                <OleDbSource Name="CollegePitcherSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <VariableInput VariableName="User.CollegePItcherSeasonUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegePitcherSeasonUC" LocaleId="None" ConnectionName="CollegePitcherSeasonUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegePitcherLogUC">
+                            <Transformations>
+                                <OleDbSource Name="CollegePitcherLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <DataflowOverrides>
+                                        <OutputPath OutputPathName="Output">
+                                            <Columns>
+                                                <Column ColumnName="game_date" Length="30" />
+                                            </Columns>
+                                        </OutputPath>
+                                    </DataflowOverrides>
+                                    <VariableInput VariableName="User.CollegePitcherLogUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegePitcherLogUC" LocaleId="None" ConnectionName="CollegePitcherLogUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeHitterSeasonUC">
+                            <Transformations>
+                                <OleDbSource Name="CollegeHitterSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <VariableInput VariableName="User.CollegeHitterSeasonUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegeHitterSeasonUC" LocaleId="None" ConnectionName="CollegeHitterSeasonUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeHitterLogUC">
+                            <Transformations>
+                                <OleDbSource Name="CollegeHitterLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <VariableInput VariableName="User.CollegeHitterLogUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegeHitterLogUC" LocaleId="None" ConnectionName="CollegeHitterLogUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeFielderSeason">
+                            <Transformations>
+                                <OleDbSource Name="CollegeFielderSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <VariableInput VariableName="User.CollegeFielderSeasonUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegeFielderSeasonUC" LocaleId="None" ConnectionName="CollegeFielderSeasonUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                        <Dataflow Name="CollegeFielderLog">
+                            <Transformations>
+                                <OleDbSource Name="CollegeFielderLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                    <VariableInput VariableName="User.CollegeFielderLogUC" />
+                                </OleDbSource>
+                                <FlatFileDestination Name="CollegeFielderLogUC" LocaleId="None" ConnectionName="CollegeFielderLogUC">
+                                    <Header></Header>
+                                </FlatFileDestination>
+                            </Transformations>
+                        </Dataflow>
+                    </Tasks>
+                </Container>
+                <ExecuteSQL Name="DELETE TEST" ConnectionName="Cartwright_MYSQL(UNUSED)">
+                    <DirectInput>delete from deleteme where title = &apos;bill&apos;</DirectInput>
+                </ExecuteSQL>
+            </Tasks>
+            <Connections>
+                <Connection ConnectionName="BOPSSQL16-01.tbdr_stats">
+                    <Expressions>
+                        <Expression ExternalProperty="InitialCatalog">@[$Project::DatabaseName]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::ServerName]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeFielderGameLog">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::FielderLog]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeFielderLogUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegeFielderLogUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeFielderSeason">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::FielderSeason]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeFielderSeasonUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegeFielderSeasonUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeHitterGameLog">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::BatterLog]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeHitterLogUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegeHitterLogUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeHitterSeason">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::BatterSeason]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegeHitterSeasonUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegeHitterSeasonUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegePitcherGameLog">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::PitcherLog]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegePitcherLogUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegePitcherLogUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegePitcherSeason">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[User::PitcherSeason]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="CollegePitcherSeasonUC">
+                    <Expressions>
+                        <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegePitcherSeasonUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+            </Connections>
+        </Package>
+    </Packages>
+    <FileFormats>
+        <FlatFileFormat Name="CollegeFielderGameLog" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebisid" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="game_date" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="game_number" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Tab" />
+                <Column Name="team_tx" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Tab" />
+                <Column Name="gs" Delimiter="Tab" />
+                <Column Name="tc" Delimiter="Tab" />
+                <Column Name="po" Delimiter="Tab" />
+                <Column Name="a" Delimiter="Tab" />
+                <Column Name="e" Delimiter="Tab" />
+                <Column Name="ci" Delimiter="Tab" />
+                <Column Name="pb" Delimiter="Tab" />
+                <Column Name="sb" Delimiter="Tab" />
+                <Column Name="cs" Delimiter="Tab" />
+                <Column Name="sba" Delimiter="Tab" />
+                <Column Name="cs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="dp" Delimiter="Tab" />
+                <Column Name="tp" Delimiter="Tab" />
+                <Column Name="gp_p" Delimiter="Tab" />
+                <Column Name="gp_c" Delimiter="Tab" />
+                <Column Name="gp_b1" Delimiter="Tab" />
+                <Column Name="gp_b2" Delimiter="Tab" />
+                <Column Name="gp_b3" Delimiter="Tab" />
+                <Column Name="gp_ss" Delimiter="Tab" />
+                <Column Name="gp_if" Delimiter="Tab" />
+                <Column Name="gp_mif" Delimiter="Tab" />
+                <Column Name="gp_cif" Delimiter="Tab" />
+                <Column Name="gp_lf" Delimiter="Tab" />
+                <Column Name="gp_cf" Delimiter="Tab" />
+                <Column Name="gp_rf" Delimiter="Tab" />
+                <Column Name="gp_cof" Delimiter="Tab" />
+                <Column Name="gp_dh" Delimiter="Tab" />
+                <Column Name="gp_ph" Delimiter="Tab" />
+                <Column Name="gp_pr" Delimiter="Tab" />
+                <Column Name="nullfield1" Length="50" DataType="String" Delimiter="Tab" MaximumWidth="50" />
+                <Column Name="nullfield2" Length="50" DataType="String" Delimiter="Tab" MaximumWidth="50" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeFielderLogUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="game_date" Length="30" DataType="AnsiString" Delimiter="Comma" MaximumWidth="30" />
+                <Column Name="game_number" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Comma" />
+                <Column Name="opponent" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="tc" Delimiter="Comma" />
+                <Column Name="po" Delimiter="Comma" />
+                <Column Name="a" Delimiter="Comma" />
+                <Column Name="e" Delimiter="Comma" />
+                <Column Name="ci" Delimiter="Comma" />
+                <Column Name="pb" Delimiter="Comma" />
+                <Column Name="sb" Delimiter="Comma" />
+                <Column Name="cs" Delimiter="Comma" />
+                <Column Name="sba" Delimiter="Comma" />
+                <Column Name="cs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="dp" Delimiter="Comma" />
+                <Column Name="tp" Delimiter="Comma" />
+                <Column Name="gp_p" Delimiter="Comma" />
+                <Column Name="gp_c" Delimiter="Comma" />
+                <Column Name="gp_b1" Delimiter="Comma" />
+                <Column Name="gp_b2" Delimiter="Comma" />
+                <Column Name="gp_b3" Delimiter="Comma" />
+                <Column Name="gp_ss" Delimiter="Comma" />
+                <Column Name="gp_if" Delimiter="Comma" />
+                <Column Name="gp_mif" Delimiter="Comma" />
+                <Column Name="gp_cif" Delimiter="Comma" />
+                <Column Name="gp_lf" Delimiter="Comma" />
+                <Column Name="gp_cf" Delimiter="Comma" />
+                <Column Name="gp_rf" Delimiter="Comma" />
+                <Column Name="gp_cof" Delimiter="Comma" />
+                <Column Name="gp_dh" Delimiter="Comma" />
+                <Column Name="gp_ph" Delimiter="Comma" />
+                <Column Name="gp_pr" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeFielderSeason" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebisid" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="roster_year" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="G" Delimiter="Tab" />
+                <Column Name="GS" Delimiter="Tab" />
+                <Column Name="tc" Delimiter="Tab" />
+                <Column Name="po" Delimiter="Tab" />
+                <Column Name="a" Delimiter="Tab" />
+                <Column Name="e" Delimiter="Tab" />
+                <Column Name="ci" Delimiter="Tab" />
+                <Column Name="pb" Delimiter="Tab" />
+                <Column Name="sb" Delimiter="Tab" />
+                <Column Name="cs" Delimiter="Tab" />
+                <Column Name="sba" Delimiter="Tab" />
+                <Column Name="cs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="dp" Delimiter="Tab" />
+                <Column Name="tp" Delimiter="Tab" />
+                <Column Name="gp_p" Delimiter="Tab" />
+                <Column Name="gp_c" Delimiter="Tab" />
+                <Column Name="gp_b1" Delimiter="Tab" />
+                <Column Name="gp_b2" Delimiter="Tab" />
+                <Column Name="gp_b3" Delimiter="Tab" />
+                <Column Name="gp_ss" Delimiter="Tab" />
+                <Column Name="gp_if" Delimiter="Tab" />
+                <Column Name="gp_mif" Delimiter="Tab" />
+                <Column Name="gp_cif" Delimiter="Tab" />
+                <Column Name="gp_lf" Delimiter="Tab" />
+                <Column Name="gp_cf" Delimiter="Tab" />
+                <Column Name="gp_rf" Delimiter="Tab" />
+                <Column Name="gp_cof" Delimiter="Tab" />
+                <Column Name="gp_dh" Delimiter="Tab" />
+                <Column Name="gp_ph" Delimiter="Tab" />
+                <Column Name="gp_pr" Delimiter="Tab" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeFielderSeasonUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="roster_year" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="tc" Delimiter="Comma" />
+                <Column Name="po" Delimiter="Comma" />
+                <Column Name="a" Delimiter="Comma" />
+                <Column Name="e" Delimiter="Comma" />
+                <Column Name="ci" Delimiter="Comma" />
+                <Column Name="pb" Delimiter="Comma" />
+                <Column Name="sb" Delimiter="Comma" />
+                <Column Name="cs" Delimiter="Comma" />
+                <Column Name="sba" Delimiter="Comma" />
+                <Column Name="cs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="dp" Delimiter="Comma" />
+                <Column Name="tp" Delimiter="Comma" />
+                <Column Name="gp_p" Delimiter="Comma" />
+                <Column Name="gp_c" Delimiter="Comma" />
+                <Column Name="gp_b1" Delimiter="Comma" />
+                <Column Name="gp_b2" Delimiter="Comma" />
+                <Column Name="gp_b3" Delimiter="Comma" />
+                <Column Name="gp_ss" Delimiter="Comma" />
+                <Column Name="gp_if" Delimiter="Comma" />
+                <Column Name="gp_mif" Delimiter="Comma" />
+                <Column Name="gp_cif" Delimiter="Comma" />
+                <Column Name="gp_lf" Delimiter="Comma" />
+                <Column Name="gp_cf" Delimiter="Comma" />
+                <Column Name="gp_rf" Delimiter="Comma" />
+                <Column Name="gp_cof" Delimiter="Comma" />
+                <Column Name="gp_dh" Delimiter="Comma" />
+                <Column Name="gp_ph" Delimiter="Comma" />
+                <Column Name="gp_pr" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeHitterGameLog" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Delimiter="Tab" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebisid" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="game_date" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="game_number" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Tab" />
+                <Column Name="opponent" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="opponent_pitcher_id" Delimiter="Tab" />
+                <Column Name="opponent_pitcher" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Tab" />
+                <Column Name="gs" Delimiter="Tab" />
+                <Column Name="pa" Delimiter="Tab" />
+                <Column Name="ab" Delimiter="Tab" />
+                <Column Name="r" Delimiter="Tab" />
+                <Column Name="h" Delimiter="Tab" />
+                <Column Name="b1" Delimiter="Tab" />
+                <Column Name="b2" Delimiter="Tab" />
+                <Column Name="b3" Delimiter="Tab" />
+                <Column Name="hr" Delimiter="Tab" />
+                <Column Name="tb" Delimiter="Tab" />
+                <Column Name="xbh" Delimiter="Tab" />
+                <Column Name="rbi" Delimiter="Tab" />
+                <Column Name="bb" Delimiter="Tab" />
+                <Column Name="ibb" Delimiter="Tab" />
+                <Column Name="uibb" Delimiter="Tab" />
+                <Column Name="so" Delimiter="Tab" />
+                <Column Name="so_swing" Delimiter="Tab" />
+                <Column Name="so_look" Delimiter="Tab" />
+                <Column Name="hbp" Delimiter="Tab" />
+                <Column Name="sf" Delimiter="Tab" />
+                <Column Name="sh" Delimiter="Tab" />
+                <Column Name="dp" Delimiter="Tab" />
+                <Column Name="sb" Delimiter="Tab" />
+                <Column Name="cs" Delimiter="Tab" />
+                <Column Name="sba" Delimiter="Tab" />
+                <Column Name="sb_net" Delimiter="Tab" />
+                <Column Name="sb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="pickoff" Delimiter="Tab" />
+                <Column Name="pitches" Delimiter="Tab" />
+                <Column Name="gb" Delimiter="Tab" />
+                <Column Name="fb" Delimiter="Tab" />
+                <Column Name="ld" Delimiter="Tab" />
+                <Column Name="pu" Delimiter="Tab" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ops" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="avg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ops_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeHitterLogUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="game_date" Length="30" DataType="AnsiString" Delimiter="Comma" MaximumWidth="30" />
+                <Column Name="game_number" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Comma" />
+                <Column Name="opponent" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="opponent_pitcher_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="opponent_pitcher" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="pa" Delimiter="Comma" />
+                <Column Name="ab" Delimiter="Comma" />
+                <Column Name="r" Delimiter="Comma" />
+                <Column Name="h" Delimiter="Comma" />
+                <Column Name="b1" Delimiter="Comma" />
+                <Column Name="b2" Delimiter="Comma" />
+                <Column Name="b3" Delimiter="Comma" />
+                <Column Name="hr" Delimiter="Comma" />
+                <Column Name="tb" Delimiter="Comma" />
+                <Column Name="xbh" Delimiter="Comma" />
+                <Column Name="rbi" Delimiter="Comma" />
+                <Column Name="bb" Delimiter="Comma" />
+                <Column Name="ibb" Delimiter="Comma" />
+                <Column Name="uibb" Delimiter="Comma" />
+                <Column Name="so" Delimiter="Comma" />
+                <Column Name="so_swing" Delimiter="Comma" />
+                <Column Name="so_look" Delimiter="Comma" />
+                <Column Name="hbp" Delimiter="Comma" />
+                <Column Name="sf" Delimiter="Comma" />
+                <Column Name="sh" Delimiter="Comma" />
+                <Column Name="dp" Delimiter="Comma" />
+                <Column Name="sb" Delimiter="Comma" />
+                <Column Name="cs" Delimiter="Comma" />
+                <Column Name="sba" Delimiter="Comma" />
+                <Column Name="sb_net" Delimiter="Comma" />
+                <Column Name="sb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="pickoff" Delimiter="Comma" />
+                <Column Name="pitches" Delimiter="Comma" />
+                <Column Name="gb" Delimiter="Comma" />
+                <Column Name="fb" Delimiter="Comma" />
+                <Column Name="ld" Delimiter="Comma" />
+                <Column Name="pu" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ops" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="avg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ops_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeHitterSeason" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Delimiter="Tab" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Delimiter="Tab" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebis_id" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="roster_year" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Tab" />
+                <Column Name="gs" Delimiter="Tab" />
+                <Column Name="pa" Delimiter="Tab" />
+                <Column Name="ab" Delimiter="Tab" />
+                <Column Name="r" Delimiter="Tab" />
+                <Column Name="h" Delimiter="Tab" />
+                <Column Name="b1" Delimiter="Tab" />
+                <Column Name="b2" Delimiter="Tab" />
+                <Column Name="b3" Delimiter="Tab" />
+                <Column Name="hr" Delimiter="Tab" />
+                <Column Name="tb" Delimiter="Tab" />
+                <Column Name="xbh" Delimiter="Tab" />
+                <Column Name="rbi" Delimiter="Tab" />
+                <Column Name="bb" Delimiter="Tab" />
+                <Column Name="ibb" Delimiter="Tab" />
+                <Column Name="uibb" Delimiter="Tab" />
+                <Column Name="so" Delimiter="Tab" />
+                <Column Name="so_swing" Delimiter="Tab" />
+                <Column Name="so_look" Delimiter="Tab" />
+                <Column Name="hbp" Delimiter="Tab" />
+                <Column Name="sf" Delimiter="Tab" />
+                <Column Name="sh" Delimiter="Tab" />
+                <Column Name="dp" Delimiter="Tab" />
+                <Column Name="sb" Delimiter="Tab" />
+                <Column Name="cs" Delimiter="Tab" />
+                <Column Name="sba" Delimiter="Tab" />
+                <Column Name="sb_net" Delimiter="Tab" />
+                <Column Name="sb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="pickoff" Delimiter="Tab" />
+                <Column Name="pitches" Delimiter="Tab" />
+                <Column Name="gb" Delimiter="Tab" />
+                <Column Name="fb" Delimiter="Tab" />
+                <Column Name="ld" Delimiter="Tab" />
+                <Column Name="pu" Delimiter="Tab" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ops" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_b3_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegeHitterSeasonUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="roster_year" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="pa" Delimiter="Comma" />
+                <Column Name="ab" Delimiter="Comma" />
+                <Column Name="r" Delimiter="Comma" />
+                <Column Name="h" Delimiter="Comma" />
+                <Column Name="b1" Delimiter="Comma" />
+                <Column Name="b2" Delimiter="Comma" />
+                <Column Name="b3" Delimiter="Comma" />
+                <Column Name="hr" Delimiter="Comma" />
+                <Column Name="tb" Delimiter="Comma" />
+                <Column Name="xbh" Delimiter="Comma" />
+                <Column Name="rbi" Delimiter="Comma" />
+                <Column Name="bb" Delimiter="Comma" />
+                <Column Name="ibb" Delimiter="Comma" />
+                <Column Name="uibb" Delimiter="Comma" />
+                <Column Name="so" Delimiter="Comma" />
+                <Column Name="so_swing" Delimiter="Comma" />
+                <Column Name="so_look" Delimiter="Comma" />
+                <Column Name="hbp" Delimiter="Comma" />
+                <Column Name="sf" Delimiter="Comma" />
+                <Column Name="sh" Delimiter="Comma" />
+                <Column Name="dp" Delimiter="Comma" />
+                <Column Name="sb" Delimiter="Comma" />
+                <Column Name="cs" Delimiter="Comma" />
+                <Column Name="sba" Delimiter="Comma" />
+                <Column Name="sb_net" Delimiter="Comma" />
+                <Column Name="sb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="pickoff" Delimiter="Comma" />
+                <Column Name="pitches" Delimiter="Comma" />
+                <Column Name="gb" Delimiter="Comma" />
+                <Column Name="fb" Delimiter="Comma" />
+                <Column Name="ld" Delimiter="Comma" />
+                <Column Name="pu" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ops" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_b3_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegePitcherGameLog" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebisid" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="game_date" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="game_number" Length="50" DataType="AnsiString" Delimiter="Tab" MaximumWidth="50" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Tab" />
+                <Column Name="opponent" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Tab" />
+                <Column Name="gs" Delimiter="Tab" />
+                <Column Name="gr" Delimiter="Tab" />
+                <Column Name="cg" Delimiter="Tab" />
+                <Column Name="sho" Delimiter="Tab" />
+                <Column Name="ip" Precision="9" Scale="6" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="tbf" Delimiter="Tab" />
+                <Column Name="ab" Delimiter="Tab" />
+                <Column Name="h" Delimiter="Tab" />
+                <Column Name="b1" Delimiter="Tab" />
+                <Column Name="b2" Delimiter="Tab" />
+                <Column Name="b3" Delimiter="Tab" />
+                <Column Name="hr" Delimiter="Tab" />
+                <Column Name="tb" Delimiter="Tab" />
+                <Column Name="xbh" Delimiter="Tab" />
+                <Column Name="r" Delimiter="Tab" />
+                <Column Name="er" Delimiter="Tab" />
+                <Column Name="outs" Delimiter="Tab" />
+                <Column Name="bb" Delimiter="Tab" />
+                <Column Name="ibb" Delimiter="Tab" />
+                <Column Name="uibb" Delimiter="Tab" />
+                <Column Name="so" Delimiter="Tab" />
+                <Column Name="so_swing" Delimiter="Tab" />
+                <Column Name="so_look" Delimiter="Tab" />
+                <Column Name="bk" Delimiter="Tab" />
+                <Column Name="wp" Delimiter="Tab" />
+                <Column Name="hbp" Delimiter="Tab" />
+                <Column Name="sf" Delimiter="Tab" />
+                <Column Name="sh" Delimiter="Tab" />
+                <Column Name="inh_run" Delimiter="Tab" />
+                <Column Name="inh_score" Delimiter="Tab" />
+                <Column Name="inh_score_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="pitches" Delimiter="Tab" />
+                <Column Name="gb" Delimiter="Tab" />
+                <Column Name="fb" Delimiter="Tab" />
+                <Column Name="ld" Delimiter="Tab" />
+                <Column Name="pu" Delimiter="Tab" />
+                <Column Name="GO" Delimiter="Tab" />
+                <Column Name="fo" Delimiter="Tab" />
+                <Column Name="go_fo" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="era" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ra" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="outs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="avg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ops_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="days_rest" Delimiter="Tab" />
+                <Column Name="w" Delimiter="Tab" />
+                <Column Name="l" Delimiter="Tab" />
+                <Column Name="sv" Delimiter="Tab" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegePitcherLogUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="game_date" Length="50" DataType="String" Delimiter="Comma" MaximumWidth="50" />
+                <Column Name="game_number" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="opponent_team_id" Delimiter="Comma" />
+                <Column Name="opponent" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="gr" Delimiter="Comma" />
+                <Column Name="cg" Delimiter="Comma" />
+                <Column Name="sho" Delimiter="Comma" />
+                <Column Name="ip" Precision="9" Scale="6" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="tbf" Delimiter="Comma" />
+                <Column Name="ab" Delimiter="Comma" />
+                <Column Name="h" Delimiter="Comma" />
+                <Column Name="b1" Delimiter="Comma" />
+                <Column Name="b2" Delimiter="Comma" />
+                <Column Name="b3" Delimiter="Comma" />
+                <Column Name="hr" Delimiter="Comma" />
+                <Column Name="tb" Delimiter="Comma" />
+                <Column Name="xbh" Delimiter="Comma" />
+                <Column Name="r" Delimiter="Comma" />
+                <Column Name="er" Delimiter="Comma" />
+                <Column Name="outs" Delimiter="Comma" />
+                <Column Name="bb" Delimiter="Comma" />
+                <Column Name="ibb" Delimiter="Comma" />
+                <Column Name="uibb" Delimiter="Comma" />
+                <Column Name="so" Delimiter="Comma" />
+                <Column Name="so_swing" Delimiter="Comma" />
+                <Column Name="so_look" Delimiter="Comma" />
+                <Column Name="bk" Delimiter="Comma" />
+                <Column Name="wp" Delimiter="Comma" />
+                <Column Name="hbp" Delimiter="Comma" />
+                <Column Name="sf" Delimiter="Comma" />
+                <Column Name="sh" Delimiter="Comma" />
+                <Column Name="inh_run" Delimiter="Comma" />
+                <Column Name="inh_score" Delimiter="Comma" />
+                <Column Name="inh_score_pct" Precision="4" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="pitches" Delimiter="Comma" />
+                <Column Name="gb" Delimiter="Comma" />
+                <Column Name="fb" Delimiter="Comma" />
+                <Column Name="ld" Delimiter="Comma" />
+                <Column Name="pu" Delimiter="Comma" />
+                <Column Name="GO" Delimiter="Comma" />
+                <Column Name="fo" Delimiter="Comma" />
+                <Column Name="go_fo" Precision="10" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="era" Precision="6" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ra" Precision="6" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="p_pa" Precision="10" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="outs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="avg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ops_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon_ytd" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="days_rest" Delimiter="Comma" />
+                <Column Name="w" Delimiter="Comma" />
+                <Column Name="l" Delimiter="Comma" />
+                <Column Name="sv" Delimiter="Comma" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegePitcherSeason" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Tab" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_partial_id" Delimiter="Tab" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_team_id" Delimiter="Tab" />
+                <Column Name="ebis_id" Delimiter="Tab" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="roster_year" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Tab" />
+                <Column Name="gs" Delimiter="Tab" />
+                <Column Name="gr" Delimiter="Tab" />
+                <Column Name="cg" Delimiter="Tab" />
+                <Column Name="sho" Delimiter="Tab" />
+                <Column Name="ip" Delimiter="Tab" />
+                <Column Name="tbf" Delimiter="Tab" />
+                <Column Name="ab" Delimiter="Tab" />
+                <Column Name="h" Delimiter="Tab" />
+                <Column Name="b1" Delimiter="Tab" />
+                <Column Name="b2" Delimiter="Tab" />
+                <Column Name="b3" Delimiter="Tab" />
+                <Column Name="hr" Delimiter="Tab" />
+                <Column Name="tb" Delimiter="Tab" />
+                <Column Name="xbh" Delimiter="Tab" />
+                <Column Name="r" Delimiter="Tab" />
+                <Column Name="er" Delimiter="Tab" />
+                <Column Name="outs" Delimiter="Tab" />
+                <Column Name="bb" Delimiter="Tab" />
+                <Column Name="ibb" Delimiter="Tab" />
+                <Column Name="uibb" Delimiter="Tab" />
+                <Column Name="so" Delimiter="Tab" />
+                <Column Name="so_swing" Delimiter="Tab" />
+                <Column Name="so_look" Delimiter="Tab" />
+                <Column Name="bk" Delimiter="Tab" />
+                <Column Name="wp" Delimiter="Tab" />
+                <Column Name="hbp" Delimiter="Tab" />
+                <Column Name="sf" Delimiter="Tab" />
+                <Column Name="sh" Delimiter="Tab" />
+                <Column Name="inh_run" Delimiter="Tab" />
+                <Column Name="inh_score" Delimiter="Tab" />
+                <Column Name="inh_score_pct" Precision="4" Scale="3" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="pitches" Delimiter="Tab" />
+                <Column Name="gb" Delimiter="Tab" />
+                <Column Name="fb" Delimiter="Tab" />
+                <Column Name="ld" Delimiter="Tab" />
+                <Column Name="pu" Delimiter="Tab" />
+                <Column Name="GO" Delimiter="Tab" />
+                <Column Name="fo" Delimiter="Tab" />
+                <Column Name="go_fo" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="era" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ra" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="outs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="so_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="bb_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="w" Delimiter="Tab" />
+                <Column Name="l" Delimiter="Tab" />
+                <Column Name="sv" Delimiter="Tab" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
+                <Column Name="created_at" DataType="DateTime" Delimiter="Tab" />
+                <Column Name="updated_at" DataType="DateTime" Delimiter="LF" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="CollegePitcherSeasonUC" CodePage="1252" TextQualifier="_x0022_" RowDelimiter="">
+            <Columns>
+                <Column Name="id" Delimiter="Comma" />
+                <Column Name="amateur_player_partial_id" Delimiter="Comma" />
+                <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="amateur_player_id" Delimiter="Comma" />
+                <Column Name="amateur_team_id" Delimiter="Comma" />
+                <Column Name="ebis_id" Delimiter="Comma" />
+                <Column Name="name" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="roster_year" Delimiter="Comma" />
+                <Column Name="conference" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="team" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="level" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="g" Delimiter="Comma" />
+                <Column Name="gs" Delimiter="Comma" />
+                <Column Name="gr" Delimiter="Comma" />
+                <Column Name="cg" Delimiter="Comma" />
+                <Column Name="sho" Delimiter="Comma" />
+                <Column Name="ip" Precision="9" Scale="6" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="tbf" Delimiter="Comma" />
+                <Column Name="ab" Delimiter="Comma" />
+                <Column Name="h" Delimiter="Comma" />
+                <Column Name="b1" Delimiter="Comma" />
+                <Column Name="b2" Delimiter="Comma" />
+                <Column Name="b3" Delimiter="Comma" />
+                <Column Name="hr" Delimiter="Comma" />
+                <Column Name="tb" Delimiter="Comma" />
+                <Column Name="xbh" Delimiter="Comma" />
+                <Column Name="r" Delimiter="Comma" />
+                <Column Name="er" Delimiter="Comma" />
+                <Column Name="outs" Delimiter="Comma" />
+                <Column Name="bb" Delimiter="Comma" />
+                <Column Name="ibb" Delimiter="Comma" />
+                <Column Name="uibb" Delimiter="Comma" />
+                <Column Name="so" Delimiter="Comma" />
+                <Column Name="so_swing" Delimiter="Comma" />
+                <Column Name="so_look" Delimiter="Comma" />
+                <Column Name="bk" Delimiter="Comma" />
+                <Column Name="wp" Delimiter="Comma" />
+                <Column Name="hbp" Delimiter="Comma" />
+                <Column Name="sf" Delimiter="Comma" />
+                <Column Name="sh" Delimiter="Comma" />
+                <Column Name="inh_run" Delimiter="Comma" />
+                <Column Name="inh_score" Delimiter="Comma" />
+                <Column Name="inh_score_pct" Precision="4" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="pitches" Delimiter="Comma" />
+                <Column Name="gb" Delimiter="Comma" />
+                <Column Name="fb" Delimiter="Comma" />
+                <Column Name="ld" Delimiter="Comma" />
+                <Column Name="pu" Delimiter="Comma" />
+                <Column Name="go" Delimiter="Comma" />
+                <Column Name="fo" Delimiter="Comma" />
+                <Column Name="go_fo" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="era" Precision="6" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ra" Precision="6" Scale="3" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_look_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hbp_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="outs_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="h_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="hr_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b1_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="b2_b3_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="xbh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sf_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="sh_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="avg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="obp" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="slg" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="iso" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="woba" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="babip" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bacon" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="so_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="bb_plus" Precision="5" Scale="4" DataType="Decimal" Delimiter="Comma" />
+                <Column Name="w" Delimiter="Comma" />
+                <Column Name="l" Delimiter="Comma" />
+                <Column Name="sv" Delimiter="Comma" />
+                <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
+                <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+    </FileFormats>
+    <ScriptProjects>
+        <ScriptComponentProject Name="SC_363841f682ce4c63a4327d01fe32f71e" ProjectCoreName="SC_363841f682ce4c63a4327d01fe32f71e">
+            <OutputBuffers>
+                <OutputBuffer Name="Output 0">
+                    <Columns>
+                        <Column Name="ErrorColumnName" Length="300" DataType="String" />
+                        <Column Name="ErrorDescription" Length="1000" DataType="String" />
+                    </Columns>
+                </OutputBuffer>
+            </OutputBuffers>
+            <InputBuffer Name="Input 0">
+                <Columns>
+                    <Column Name="ErrorCode" />
+                    <Column Name="ErrorColumn" />
+                </Columns>
+            </InputBuffer>
+        </ScriptComponentProject>
+    </ScriptProjects>
+</Biml>

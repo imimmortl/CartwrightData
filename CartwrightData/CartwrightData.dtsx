@@ -11,52 +11,38 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="CartwrightData"
   DTS:PackageType="5"
-  DTS:VersionBuild="106"
-  DTS:VersionGUID="{0353BAE2-B824-44D8-9EC7-45FBABE6C24F}">
+  DTS:ProtectionLevel="2"
+  DTS:VersionBuild="117"
+  DTS:VersionGUID="{0A666576-CD35-49BF-B986-A43D4D314885}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{C5B5FFB5-0849-4369-9638-B59C52E65D45}"
-      DTS:ObjectName="BOPSSQL16-01.tbdr_stats">
-      <DTS:PropertyExpression
-        DTS:Name="InitialCatalog">@[$Project::DatabaseName]</DTS:PropertyExpression>
-      <DTS:PropertyExpression
-        DTS:Name="ServerName">@[$Project::ServerName]</DTS:PropertyExpression>
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=BOPSSQL16-01;Initial Catalog=tbdr_stats;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{C5B5FFB5-0849-4369-9638-B59C52E65D45}BOPSSQL16-01.tbdr_stats;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Cartwright_MYSQL(UNUSED)]"
+      DTS:refId="Package.ConnectionManagers[Cartwright_MYSQL]"
       DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
       DTS:DTSID="{6E18FA23-D4F8-40A3-AC66-A513FA6214D9}"
-      DTS:ObjectName="Cartwright_MYSQL(UNUSED)">
+      DTS:ObjectName="Cartwright_MYSQL">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::MySQLSchema]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="Password">@[$Project::MySQLPassword]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::MySQLServer]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="UserName">@[$Project::MySQLUserID]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="server=10.5.130.82;user id=root;database=ncaa_warehouse;port=3306;persistsecurityinfo=True;connectiontimeout=30;protocol=Socket;connectionreset=False;">
-          <DTS:Password
-            DTS:Name="password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhdUR7ACC4EuNWK1xkp/8zwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB2O0ai012LnP8d8Dnom7owAAAAAASAAACgAAAAEAAAANDfTQ8h9nu2FJnByeMB5n4YAAAA6d0xGNEkCB8rFfHDah/vByVf04qZRX+vFAAAAKb/F/GpbSN5hjAv+MiXjYiQv4mm</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Cartwright_ODBC]"
-      DTS:CreationName="ADO.NET:System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
-      DTS:DTSID="{673CE281-FCDE-44A8-95D6-4132C208A8A1}"
-      DTS:ObjectName="Cartwright_ODBC">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="server=10.5.130.82;uid=root;Dsn=Cartwright;database=ncaa_warehouse;port=3306;">
-          <DTS:Password
-            DTS:Name="pwd"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhdUR7ACC4EuNWK1xkp/8zwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABQY0/jGLdWBJDQC7lXd9wYAAAAAASAAACgAAAAEAAAAHwYsYmbPqtYZ+FLEBNsd80YAAAAfxAKCVm95GbSh/tzwnh+JpxLB7UUQ9PCFAAAAG90Hke+NmuOjRp6VWnmLJdYFo4Q</DTS:Password>
+          DTS:ConnectionString="server=10.5.130.82;user id=root;Initial Catalog=ncaa_warehouse;database=ncaa_warehouse;port=3306;persistsecurityinfo=True;connectiontimeout=30;protocol=Socket;connectionreset=False;">
+          <EncryptedData
+            Type="http://www.w3.org/2001/04/xmlenc#Element"
+            Salt="1P16OdieXMU="
+            IV="tXiClqhMBFHBbYQGixkJ8w==" xmlns="http://www.w3.org/2001/04/xmlenc#">
+            <EncryptionMethod
+              Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc" />
+            <CipherData>
+              <CipherValue>tXiClqhMBFHBbYQGixkJ8yMXirA3HDdCNu3Vr53YHKfkkALvMiRhyJknbuq3vHI1VWy2RsiXofMueG57kyrMRs5ZMKppzl4+7oL3ap71Y16qmjP4B5hS87QL4qIbZ+2LjC4UTgoug0wUDCWhBq6ByuIrl3jFleE9aXD9c9a6QRekS/VHnYn1rZtWme+a0VZ1</CipherValue>
+            </CipherData>
+          </EncryptedData>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -77,7 +63,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeFielderLogTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegeFielderLogTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -511,7 +497,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeFielderLogUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegeFielderLogUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -931,7 +917,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeFielderSeasonTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegeFielderSeasonTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -1341,7 +1327,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeFielderSeasonUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegeFielderSeasonUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -1735,7 +1721,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeHitterLogTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegeHitterLogTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -2548,7 +2534,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeHitterLogUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegeHitterLogUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -3348,7 +3334,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeHitterSeasonTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegeHitterSeasonTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -4098,7 +4084,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegeHitterSeasonUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegeHitterSeasonUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -4834,7 +4820,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegePitcherLogTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegePitcherLogTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -5745,7 +5731,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegePitcherLogUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegePitcherLogUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -6641,7 +6627,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x003C_none_x003E_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegePitcherSeasonTMD.csv">
+          DTS:ConnectionString="c:\todd\tempCollegePitcherSeasonTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -7457,7 +7443,7 @@
           DTS:RowDelimiter=""
           DTS:TextQualifier="_x0022_"
           DTS:CodePage="1252"
-          DTS:ConnectionString="\\bops-rp12\Uploads\CollegePitcherSeasonUCTMD.csv">
+          DTS:ConnectionString="c:\todd\temp\CollegePitcherSeasonUCTMD.csv">
           <DTS:FlatFileColumns>
             <DTS:FlatFileColumn
               DTS:ColumnType="Delimited"
@@ -8244,6 +8230,20 @@
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLConnection]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C5B5FFB5-0849-4369-9638-B59C52E65D45}"
+      DTS:ObjectName="SQLConnection">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::DatabaseName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::ServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=BOPSSQL16-01;Initial Catalog=tbdr_stats;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{C5B5FFB5-0849-4369-9638-B59C52E65D45}BOPSSQL16-01.tbdr_stats;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[UC_MYSQLTEST]"
       DTS:CreationName="ADO.NET:MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d"
       DTS:DelayValidation="True"
@@ -8252,10 +8252,16 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="server=ror-dev-06;user id=&quot;'root'@'ror-dev-06' &quot;;port=3306;database=unclecharlie_development;persistsecurityinfo=True;connectiontimeout=60;protocol=Socket;">
-          <DTS:Password
-            DTS:Name="password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAhdUR7ACC4EuNWK1xkp/8zwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAB1sSXcjftnVhVnKxqPjyPGAAAAAASAAACgAAAAEAAAAJgYOoTn9pSwy26kLkHgoBcYAAAALeEheOrYsbdKmZEAIVMwHp8tczVv+haJFAAAAOt4M1LMAwVSLfPpPXpIpNLJcSvp</DTS:Password>
+          <EncryptedData
+            Type="http://www.w3.org/2001/04/xmlenc#Element"
+            Salt="yLVWQRUdEEk="
+            IV="KxL8Bqw97SqFVin8enF7LA==" xmlns="http://www.w3.org/2001/04/xmlenc#">
+            <EncryptionMethod
+              Algorithm="http://www.w3.org/2001/04/xmlenc#aes256-cbc" />
+            <CipherData>
+              <CipherValue>KxL8Bqw97SqFVin8enF7LOdC5DccZCoXS/MEelJcgh24z+uyNdm6c0GEd8bKo662TF79qPKztpIpKDsKOmihWy5z6NcvGvAknm7slgNEDSoiSBiEc17Uu11WYZtQWhKGktm4cNzsByyYm50D3LGu/2dekP0I2moCHGElf2rzdFReWcWvU824KG39qNv1eZAo</CipherValue>
+            </CipherData>
+          </EncryptedData>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -8270,7 +8276,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="BatterLog">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegeHitterLogTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegeHitterLogTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8281,7 +8287,7 @@
       DTS:Namespace="User"
       DTS:ObjectName="BatterSeason">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegeHitterSeasonTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegeHitterSeasonTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8485,7 +8491,7 @@ where roster_year = 2020</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="FielderLog">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegeFielderLogTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegeFielderLogTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8496,7 +8502,7 @@ where roster_year = 2020</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="FielderSeason">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegeFielderSeasonTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegeFielderSeasonTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8507,7 +8513,7 @@ where roster_year = 2020</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="PitcherLog">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegePitcherLogTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegePitcherLogTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8518,7 +8524,7 @@ where roster_year = 2020</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="PitcherSeason">
       <DTS:VariableValue
-        DTS:DataType="8">\\bops-rp12\Uploads\CollegePitcherSeasonTMD.csv</DTS:VariableValue>
+        DTS:DataType="8">c:\todd\tempCollegePitcherSeasonTMD.csv</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8529,7 +8535,7 @@ where roster_year = 2020</DTS:VariableValue>
       DTS:Namespace="User"
       DTS:ObjectName="RunTime">
       <DTS:VariableValue
-        DTS:DataType="7">3/11/2020 1:40:36 AM</DTS:VariableValue>
+        DTS:DataType="7">3/17/2020 11:39:59 PM</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -8590,12 +8596,13 @@ where c.roster_year = 2020</DTS:VariableValue>
       DTS:refId="Package\DELETE TEST"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
+      DTS:Disabled="True"
       DTS:DTSID="{aed33f47-bd17-4c0e-bbe1-e33ee86183c5}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="DELETE TEST"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="2">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -8699,8 +8706,8 @@ where c.roster_year = 2020</DTS:VariableValue>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegeFielderLog\CollegeFielderLog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -10269,8 +10276,8 @@ where c.roster_year = 2020</DTS:VariableValue>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegeFielderSeason\CollegeFielderSeason.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -11740,8 +11747,8 @@ where c.roster_year = 2020</DTS:VariableValue>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegeHitterLogUC\CollegeHitterLog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -14742,8 +14749,8 @@ where c.roster_year = 2020</DTS:VariableValue>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegeHitterSeasonUC\CollegeHitterSeason.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -17602,8 +17609,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegePitcherLogUC\CollegePitcherLog.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -20951,8 +20958,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Export For UC\CollegePitcherSeasonUC\CollegePitcherSeason.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -25383,8 +25390,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegeFielderGameLog\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -27375,8 +27382,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegeFielderSeason\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -30511,8 +30518,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegeHitterGameLog\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -34013,8 +34020,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegeHitterSeason\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -38012,8 +38019,8 @@ where gameyear = 2020</property>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegePitcherGameLog\CollegePitcherGameLogERROR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -39140,8 +39147,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegePitcherGameLog\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -42971,8 +42978,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
                   <connections>
                     <connection
                       refId="Package\Import CSV Files\CollegePitcherSeason\TBDR.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
-                      connectionManagerRefId="Package.ConnectionManagers[BOPSSQL16-01.tbdr_stats]"
+                      connectionManagerID="Package.ConnectionManagers[SQLConnection]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLConnection]"
                       description="The OLE DB runtime connection used to access the database."
                       name="OleDbConnection" />
                   </connections>
@@ -44110,13 +44117,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
       DTS:refId="Package\IMPORT TEST"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
-      DTS:Disabled="True"
       DTS:DTSID="{9E8CCD0A-86D1-4AA1-A178-72CBB6CB373D}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
       DTS:ObjectName="IMPORT TEST"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -44170,6 +44176,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
       DTS:To="Package\Export For UC" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{6A015752-5ABB-48EC-89AF-2217CDF99E93}"
+      DTS:From="Package\Export For UC"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\IMPORT TEST" />
   </DTS:PrecedenceConstraints>
   <DTS:EventHandlers>
     <DTS:EventHandler
@@ -44221,6 +44235,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="137.6,41.6"
+          Id="Package\DELETE TEST"
+          TopLeft="584.8,639.2" />
+        <NodeLayout
           Size="171.2,41.6"
           Id="Package\DeleteCurrentYear"
           TopLeft="714,22" />
@@ -44251,10 +44269,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="1312.8,144.8"
-          Size="1312.8,188"
+          PanelSize="1312.8,75.2"
+          Size="1312.8,118.4"
           Id="Package\Export For UC"
-          TopLeft="99,390" />
+          TopLeft="99,459.6" />
         <NodeLayout
           Size="198.4,41.6"
           Id="Package\Import CSV Files\CollegeFielderGameLog"
@@ -44287,9 +44305,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           Id="Package\Import CSV Files"
           TopLeft="67,100" />
         <NodeLayout
+          Size="137.6,41.6"
+          Id="Package\IMPORT TEST"
+          TopLeft="249.5,642.3" />
+        <NodeLayout
           Size="134.4,41.6"
           Id="Package\Update IDs"
-          TopLeft="648,291" />
+          TopLeft="652.8,342.2" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="799.5,64">
@@ -44326,30 +44348,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="773.5,257">
+          TopLeft="773.4,256.8">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-58.5,34"
+              EndConnector="-53.4,85.4"
               Start="0,0"
-              End="-58.5,26.5">
+              End="-53.4,77.9">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13" />
+                    End="0,38.7" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13"
-                    Point2="0,17"
-                    Point3="-4,17" />
+                    Point1="0,38.7"
+                    Point2="0,42.7"
+                    Point3="-4,42.7" />
                   <mssgle:LineSegment
-                    End="-54.5,17" />
+                    End="-49.4,42.7" />
                   <mssgle:CubicBezierSegment
-                    Point1="-54.5,17"
-                    Point2="-58.5,17"
-                    Point3="-58.5,21" />
+                    Point1="-49.4,42.7"
+                    Point2="-53.4,42.7"
+                    Point3="-53.4,46.7" />
                   <mssgle:LineSegment
-                    End="-58.5,26.5" />
+                    End="-53.4,77.9" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -44360,30 +44382,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="715,333">
+          TopLeft="720,383.8">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="40.5,57"
+              EndConnector="35.4,75.8"
               Start="0,0"
-              End="40.5,49.5">
+              End="35.4,68.3">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.5" />
+                    End="0,33.9" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,24.5"
-                    Point2="0,28.5"
-                    Point3="4,28.5" />
+                    Point1="0,33.9"
+                    Point2="0,37.9"
+                    Point3="4,37.9" />
                   <mssgle:LineSegment
-                    End="36.5,28.5" />
+                    End="31.4,37.9" />
                   <mssgle:CubicBezierSegment
-                    Point1="36.5,28.5"
-                    Point2="40.5,28.5"
-                    Point3="40.5,32.5" />
+                    Point1="31.4,37.9"
+                    Point2="35.4,37.9"
+                    Point3="35.4,41.9" />
                   <mssgle:LineSegment
-                    End="40.5,49.5" />
+                    End="35.4,68.3" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -44392,14 +44414,40 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="137.6,41.6"
-          Id="Package\IMPORT TEST"
-          TopLeft="5.5,11.1" />
-        <NodeLayout
-          Size="137.6,41.6"
-          Id="Package\DELETE TEST"
-          TopLeft="239.2,430.4" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="755.4,578">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-437.1,64.3"
+              Start="0,0"
+              End="-437.1,56.8">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.15"
+                    Point2="0,32.15"
+                    Point3="-4,32.15" />
+                  <mssgle:LineSegment
+                    End="-433.1,32.15" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-433.1,32.15"
+                    Point2="-437.1,32.15"
+                    Point3="-437.1,36.15" />
+                  <mssgle:LineSegment
+                    End="-437.1,56.8" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -44705,7 +44753,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
     design-time-name="Package\Export For UC\CollegePitcherSeasonUC">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="188,41.6"
           Id="Package\Export For UC\CollegePitcherSeasonUC\CollegePitcherSeason"
@@ -44733,7 +44781,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

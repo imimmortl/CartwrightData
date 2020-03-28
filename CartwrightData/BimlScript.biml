@@ -1,24 +1,24 @@
 ﻿<Biml xmlns="http://schemas.varigence.com/biml.xsd">
     <Connections>
-        <Connection Name="BOPSSQL16-01.tbdr_stats" ConnectionString="Data Source=BOPSSQL16-01;Initial Catalog=tbdr_stats;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{C5B5FFB5-0849-4369-9638-B59C52E65D45}BOPSSQL16-01.tbdr_stats;" />
-        <AdoNetConnection Name="Cartwright_MYSQL(UNUSED)" ConnectionString="server=10.5.130.82;user id=root;database=ncaa_warehouse;port=3306;persistsecurityinfo=True;connectiontimeout=30;protocol=Socket;connectionreset=False;" Provider="MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
-        <AdoNetConnection Name="Cartwright_ODBC" ConnectionString="server=10.5.130.82;uid=root;Dsn=Cartwright;database=ncaa_warehouse;port=3306;" Provider="System.Data.Odbc.OdbcConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-        <FlatFileConnection Name="CollegeFielderGameLog" DelayValidation="true" FilePath="\\bops-rp12\Uploads\CollegeFielderLogTMD.csv" FileFormat="CollegeFielderGameLog" />
-        <FlatFileConnection Name="CollegeFielderLogUC" FilePath="\\bops-rp12\Uploads\CollegeFielderLogUCTMD.csv" FileFormat="CollegeFielderLogUC" />
-        <FlatFileConnection Name="CollegeFielderSeason" FilePath="\\bops-rp12\Uploads\CollegeFielderSeasonTMD.csv" FileFormat="CollegeFielderSeason" />
-        <FlatFileConnection Name="CollegeFielderSeasonUC" FilePath="\\bops-rp12\Uploads\CollegeFielderSeasonUCTMD.csv" FileFormat="CollegeFielderSeasonUC" />
-        <FlatFileConnection Name="CollegeHitterGameLog" FilePath="\\bops-rp12\Uploads\CollegeHitterLogTMD.csv" FileFormat="CollegeHitterGameLog" />
-        <FlatFileConnection Name="CollegeHitterLogUC" FilePath="\\bops-rp12\Uploads\CollegeHitterLogUCTMD.csv" FileFormat="CollegeHitterLogUC" />
-        <FlatFileConnection Name="CollegeHitterSeason" FilePath="\\bops-rp12\Uploads\CollegeHitterSeasonTMD.csv" FileFormat="CollegeHitterSeason" />
-        <FlatFileConnection Name="CollegeHitterSeasonUC" FilePath="\\bops-rp12\Uploads\CollegeHitterSeasonUCTMD.csv" FileFormat="CollegeHitterSeasonUC" />
-        <FlatFileConnection Name="CollegePitcherGameLog" FilePath="\\bops-rp12\Uploads\CollegePitcherLogTMD.csv" FileFormat="CollegePitcherGameLog" />
-        <FlatFileConnection Name="CollegePitcherLogUC" FilePath="\\bops-rp12\Uploads\CollegePitcherLogUCTMD.csv" FileFormat="CollegePitcherLogUC" />
-        <FlatFileConnection Name="CollegePitcherSeason" FilePath="\\bops-rp12\Uploads\CollegePitcherSeasonTMD.csv" FileFormat="CollegePitcherSeason" />
-        <FlatFileConnection Name="CollegePitcherSeasonUC" FilePath="\\bops-rp12\Uploads\CollegePitcherSeasonUCTMD.csv" FileFormat="CollegePitcherSeasonUC" />
+        <AdoNetConnection Name="Cartwright_MYSQL" ConnectionString="server=10.5.130.82;user id=root;Initial Catalog=ncaa_warehouse;database=ncaa_warehouse;port=3306;persistsecurityinfo=True;connectiontimeout=30;protocol=Socket;connectionreset=False;" Provider="MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+        <FlatFileConnection Name="CollegeFielderGameLog" DelayValidation="true" FilePath="c:\todd\temp\CollegeFielderLogTMD.csv" FileFormat="CollegeFielderGameLog" />
+        <FlatFileConnection Name="CollegeFielderLogUC" FilePath="c:\todd\temp\CollegeFielderLogUCTMD.csv" FileFormat="CollegeFielderLogUC" />
+        <FlatFileConnection Name="CollegeFielderSeason" FilePath="c:\todd\temp\CollegeFielderSeasonTMD.csv" FileFormat="CollegeFielderSeason" />
+        <FlatFileConnection Name="CollegeFielderSeasonUC" FilePath="c:\todd\temp\CollegeFielderSeasonUCTMD.csv" FileFormat="CollegeFielderSeasonUC" />
+        <FlatFileConnection Name="CollegeHitterGameLog" FilePath="c:\todd\temp\CollegeHitterLogTMD.csv" FileFormat="CollegeHitterGameLog" />
+        <FlatFileConnection Name="CollegeHitterLogUC" FilePath="c:\todd\temp\CollegeHitterLogUCTMD.csv" FileFormat="CollegeHitterLogUC" />
+        <FlatFileConnection Name="CollegeHitterSeason" FilePath="c:\todd\temp\CollegeHitterSeasonTMD.csv" FileFormat="CollegeHitterSeason" />
+        <FlatFileConnection Name="CollegeHitterSeasonUC" FilePath="c:\todd\temp\CollegeHitterSeasonUCTMD.csv" FileFormat="CollegeHitterSeasonUC" />
+        <FlatFileConnection Name="CollegePitcherGameLog" FilePath="c:\todd\temp\CollegePitcherLogTMD.csv" FileFormat="CollegePitcherGameLog" />
+        <FlatFileConnection Name="CollegePitcherLogUC" FilePath="c:\todd\temp\CollegePitcherLogUCTMD.csv" FileFormat="CollegePitcherLogUC" />
+        <FlatFileConnection Name="CollegePitcherSeason" FilePath="c:\todd\temp\CollegePitcherSeasonTMD.csv" FileFormat="CollegePitcherSeason" />
+        <FlatFileConnection Name="CollegePitcherSeasonUC" FilePath="c:\todd\temp\CollegePitcherSeasonUCTMD.csv" FileFormat="CollegePitcherSeasonUC" />
+        <Connection Name="SQLConnection" ConnectionString="Data Source=bopssql16-01;Initial Catalog=tbdr_stats;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{C5B5FFB5-0849-4369-9638-B59C52E65D45}BOPSSQL16-01.tbdr_stats;" />
+        <FlatFileConnection Name="TEST" FilePath="C:\Todd\deleteme.txt" FileFormat="TEST" />
         <AdoNetConnection Name="UC_MYSQLTEST" DelayValidation="true" ConnectionString="server=ror-dev-06;user id=&quot;&apos;root&apos;@&apos;ror-dev-06&apos; &quot;;port=3306;database=unclecharlie_development;persistsecurityinfo=True;connectiontimeout=60;protocol=Socket;" Provider="MySql.Data.MySqlClient.MySqlConnection, MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
     </Connections>
     <Packages>
-        <Package Name="CartwrightData" Language="None" ProtectionLevel="EncryptSensitiveWithUserKey">
+        <Package Name="CartwrightData" Language="None" ProtectionLevel="EncryptSensitiveWithPassword">
             <Events>
                 <Event Name="OnError" EventType="OnError" />
             </Events>
@@ -169,65 +169,51 @@ FROM college_hitter_logs c
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = &quot; +  @[$Project::CurrentYear] +
-&quot; update c 
+and c.gameyear = map.roster_year; \n\r GO \n\rupdate c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_hitter_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.roster_year = map.roster_year
-where map.roster_year = &quot; +  @[$Project::CurrentYear] +
-&quot; update c 
+and c.roster_year = map.roster_year;
+ \n\r GO \n\r update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_pitcher_logs c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = &quot; +  @[$Project::CurrentYear] +
-&quot; update c 
+and c.gameyear = map.roster_year;
+ \n\r GO \n\r update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_pitcher_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.roster_year = map.roster_year
-where c.roster_year = &quot; +  @[$Project::CurrentYear] +
-&quot; update c 
+and c.roster_year = map.roster_year;
+ \n\r GO \n\r update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_fielder_logs c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = &quot; +  @[$Project::CurrentYear] +
-&quot; update c 
+and c.gameyear = map.roster_year;
+ \n\r GO \n\r update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_fielder_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
 and c.roster_year = map.roster_year
-where c.roster_year = &quot; +  @[$Project::CurrentYear]</Variable>
+;&quot;</Variable>
             </Variables>
             <Tasks>
-                <ExecuteSQL Name="IMPORT TEST" Disabled="true" ConnectionName="Cartwright_MYSQL(UNUSED)">
-                    <DirectInput>LOAD DATA INFILE &apos;C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/deleteme.txt&apos; 
-INTO TABLE DELETEME 
-FIELDS TERMINATED BY &apos;\t&apos; 
-ENCLOSED BY &apos;&quot;&apos;
-LINES TERMINATED BY &apos;\n&apos;
-IGNORE 1 ROWS;</DirectInput>
-                </ExecuteSQL>
-                <ExecuteSQL Name="DeleteCurrentYear" Disabled="true" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                <ExecuteSQL Name="DeleteCurrentYear" ConnectionName="SQLConnection">
                     <Expressions>
                         <Expression ExternalProperty="SqlStatementSource">&quot;delete from college_pitcher_seasons where roster_year = &quot; + @[$Project::CurrentYear] + &quot; delete from college_pitcher_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot; delete from college_hitter_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot;  delete from college_hitter_seasons where roster_year = &quot; + @[$Project::CurrentYear] + &quot;delete from college_fielder_logs where gameyear = &quot; + @[$Project::CurrentYear] + &quot; delete from college_fielder_seasons where roster_year = &quot; + @[$Project::CurrentYear]</Expression>
                     </Expressions>
                     <DirectInput>delete from college_pitcher_seasons where roster_year = 2020 delete from college_pitcher_logs where gameyear = 2020 delete from college_hitter_logs where gameyear = 2020  delete from college_hitter_seasons where roster_year = 2020delete from college_fielder_logs where gameyear = 2020 delete from college_fielder_seasons where roster_year = 2020</DirectInput>
                 </ExecuteSQL>
-                <Container Name="Import CSV Files" Disabled="true">
+                <Container Name="Import CSV Files">
                     <PrecedenceConstraints>
                         <Inputs>
                             <Input OutputPathName="DeleteCurrentYear.Output" />
@@ -243,7 +229,7 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::PitcherSeason]</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="LEVEL" TargetColumn="level" />
                                         <Column SourceColumn="GO" TargetColumn="go" />
@@ -371,7 +357,7 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="GameYear" DataType="Int32">YEAR(game_date)</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="GO" TargetColumn="go" />
                                         <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
@@ -389,10 +375,12 @@ IGNORE 1 ROWS;</DirectInput>
                                     <Columns>
                                         <Column Name="RunTime" DataType="Date">@[User::RunTime]</Column>
                                         <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::PitcherLog]</Column>
+                                        <Column Name="PackageName" DataType="AnsiString" Length="300" CodePage="1252">(DT_STR,300,1252)@[System::PackageName]</Column>
+                                        <Column Name="FullRow" DataType="AnsiString" CodePage="1252">[Flat File Source Error Output Column]</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="CollegePitcherGameLogERROR" ConnectionName="BOPSSQL16-01.tbdr_stats">
-                                    <ExternalTableOutput Table="[CollegePitcherGameLogERROR]" />
+                                <OleDbDestination Name="BOPS_EtlErrorLog" ConnectionName="SQLConnection">
+                                    <ExternalTableOutput Table="[dbo].[BOPS_ETLErrorLOG]" />
                                 </OleDbDestination>
                             </Transformations>
                         </Dataflow>
@@ -494,7 +482,7 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::BatterSeason]</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="LEVEL" TargetColumn="level" />
                                         <Column SourceColumn="RunTime" TargetColumn="Runtime" />
@@ -514,7 +502,7 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="Gameyear" DataType="Int32">YEAR(game_date)</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="LEVEL" TargetColumn="level" />
                                         <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
@@ -535,14 +523,14 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="FileName" DataType="String" Length="500">(DT_WSTR,500)@[User::FielderSeason]</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="LEVEL" TargetColumn="level" />
                                         <Column SourceColumn="G" TargetColumn="g" />
                                         <Column SourceColumn="GS" TargetColumn="gs" />
+                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
                                         <Column SourceColumn="RunTime" TargetColumn="Runtime" />
                                         <Column SourceColumn="FileName" TargetColumn="Filename" />
-                                        <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
                                     </Columns>
                                     <ExternalTableOutput Table="[dbo].[college_fielder_seasons]" />
                                 </OleDbDestination>
@@ -558,13 +546,13 @@ IGNORE 1 ROWS;</DirectInput>
                                         <Column Name="GameYear" DataType="Int32">YEAR(game_date)</Column>
                                     </Columns>
                                 </DerivedColumns>
-                                <OleDbDestination Name="TBDR" ConnectionName="BOPSSQL16-01.tbdr_stats" KeepNulls="true">
+                                <OleDbDestination Name="TBDR" ConnectionName="SQLConnection" KeepNulls="true">
                                     <Columns>
                                         <Column SourceColumn="LEVEL" TargetColumn="level" />
-                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
-                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
                                         <Column SourceColumn="ebisid" TargetColumn="ebis_id" />
                                         <Column SourceColumn="team_tx" TargetColumn="opponent" />
+                                        <Column SourceColumn="RunTime" TargetColumn="Runtime" />
+                                        <Column SourceColumn="FileName" TargetColumn="Filename" />
                                         <Column SourceColumn="GameYear" TargetColumn="gameyear" />
                                     </Columns>
                                     <ExternalTableOutput Table="[dbo].[college_fielder_logs]" />
@@ -573,7 +561,7 @@ IGNORE 1 ROWS;</DirectInput>
                         </Dataflow>
                     </Tasks>
                 </Container>
-                <ExecuteSQL Name="Update IDs" Disabled="true" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                <ExecuteSQL Name="Update IDs" ConnectionName="SQLConnection">
                     <Expressions>
                         <Expression ExternalProperty="SqlStatementSource">@[User::UpdateIDs]</Expression>
                     </Expressions>
@@ -588,45 +576,64 @@ FROM college_hitter_logs c
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = 2020 update c 
+and c.gameyear = map.roster_year; 
+
+ GO 
+
+update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_hitter_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.roster_year = map.roster_year
-where map.roster_year = 2020 update c 
+and c.roster_year = map.roster_year;
+ 
+
+ GO 
+
+ update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_pitcher_logs c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = 2020 update c 
+and c.gameyear = map.roster_year;
+ 
+
+ GO 
+
+ update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_pitcher_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.roster_year = map.roster_year
-where c.roster_year = 2020 update c 
+and c.roster_year = map.roster_year;
+ 
+
+ GO 
+
+ update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_fielder_logs c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
-and c.gameyear = map.roster_year
-where c.gameyear = 2020 update c 
+and c.gameyear = map.roster_year;
+ 
+
+ GO 
+
+ update c 
 set c.amateur_player_id = map.amateur_player_id
 FROM college_fielder_seasons c 
 join amateur_source_player_mappings map
 on c.source = map.source
 and c.source_player_id = map.source_player_id
 and c.roster_year = map.roster_year
-where c.roster_year = 2020</DirectInput>
+;</DirectInput>
                 </ExecuteSQL>
-                <Container Name="Export For UC" Disabled="true">
+                <Container Name="Export For UC">
                     <PrecedenceConstraints>
                         <Inputs>
                             <Input OutputPathName="Update IDs.Output" />
@@ -635,7 +642,7 @@ where c.roster_year = 2020</DirectInput>
                     <Tasks>
                         <Dataflow Name="CollegePitcherSeasonUC">
                             <Transformations>
-                                <OleDbSource Name="CollegePitcherSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegePitcherSeason" ConnectionName="SQLConnection">
                                     <VariableInput VariableName="User.CollegePItcherSeasonUC" />
                                 </OleDbSource>
                                 <FlatFileDestination Name="CollegePitcherSeasonUC" LocaleId="None" ConnectionName="CollegePitcherSeasonUC">
@@ -645,7 +652,7 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                         <Dataflow Name="CollegePitcherLogUC">
                             <Transformations>
-                                <OleDbSource Name="CollegePitcherLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegePitcherLog" ConnectionName="SQLConnection">
                                     <DataflowOverrides>
                                         <OutputPath OutputPathName="Output">
                                             <Columns>
@@ -662,7 +669,7 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                         <Dataflow Name="CollegeHitterSeasonUC">
                             <Transformations>
-                                <OleDbSource Name="CollegeHitterSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegeHitterSeason" ConnectionName="SQLConnection">
                                     <VariableInput VariableName="User.CollegeHitterSeasonUC" />
                                 </OleDbSource>
                                 <FlatFileDestination Name="CollegeHitterSeasonUC" LocaleId="None" ConnectionName="CollegeHitterSeasonUC">
@@ -672,7 +679,7 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                         <Dataflow Name="CollegeHitterLogUC">
                             <Transformations>
-                                <OleDbSource Name="CollegeHitterLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegeHitterLog" ConnectionName="SQLConnection">
                                     <VariableInput VariableName="User.CollegeHitterLogUC" />
                                 </OleDbSource>
                                 <FlatFileDestination Name="CollegeHitterLogUC" LocaleId="None" ConnectionName="CollegeHitterLogUC">
@@ -682,7 +689,7 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                         <Dataflow Name="CollegeFielderSeason">
                             <Transformations>
-                                <OleDbSource Name="CollegeFielderSeason" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegeFielderSeason" ConnectionName="SQLConnection">
                                     <VariableInput VariableName="User.CollegeFielderSeasonUC" />
                                 </OleDbSource>
                                 <FlatFileDestination Name="CollegeFielderSeasonUC" LocaleId="None" ConnectionName="CollegeFielderSeasonUC">
@@ -692,7 +699,7 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                         <Dataflow Name="CollegeFielderLog">
                             <Transformations>
-                                <OleDbSource Name="CollegeFielderLog" ConnectionName="BOPSSQL16-01.tbdr_stats">
+                                <OleDbSource Name="CollegeFielderLog" ConnectionName="SQLConnection">
                                     <VariableInput VariableName="User.CollegeFielderLogUC" />
                                 </OleDbSource>
                                 <FlatFileDestination Name="CollegeFielderLogUC" LocaleId="None" ConnectionName="CollegeFielderLogUC">
@@ -702,15 +709,30 @@ where c.roster_year = 2020</DirectInput>
                         </Dataflow>
                     </Tasks>
                 </Container>
-                <ExecuteSQL Name="DELETE TEST" ConnectionName="Cartwright_MYSQL(UNUSED)">
+                <ExecuteSQL Name="IMPORT TEST" Disabled="true" ConnectionName="Cartwright_MYSQL">
+                    <PrecedenceConstraints>
+                        <Inputs>
+                            <Input OutputPathName="Export For UC.Output" />
+                        </Inputs>
+                    </PrecedenceConstraints>
+                    <DirectInput>LOAD DATA INFILE &apos;C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/deleteme.txt&apos; 
+INTO TABLE DELETEME 
+FIELDS TERMINATED BY &apos;\t&apos; 
+ENCLOSED BY &apos;&quot;&apos;
+LINES TERMINATED BY &apos;\n&apos;
+IGNORE 1 ROWS;</DirectInput>
+                </ExecuteSQL>
+                <ExecuteSQL Name="DELETE TEST" Disabled="true" ConnectionName="Cartwright_MYSQL">
                     <DirectInput>delete from deleteme where title = &apos;bill&apos;</DirectInput>
                 </ExecuteSQL>
             </Tasks>
             <Connections>
-                <Connection ConnectionName="BOPSSQL16-01.tbdr_stats">
+                <Connection ConnectionName="Cartwright_MYSQL">
                     <Expressions>
-                        <Expression ExternalProperty="InitialCatalog">@[$Project::DatabaseName]</Expression>
-                        <Expression ExternalProperty="ServerName">@[$Project::ServerName]</Expression>
+                        <Expression ExternalProperty="InitialCatalog">@[$Project::MySQLSchema]</Expression>
+                        <Expression ExternalProperty="Password">@[$Project::MySQLPassword]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::MySQLServer]</Expression>
+                        <Expression ExternalProperty="UserName">@[$Project::MySQLUserID]</Expression>
                     </Expressions>
                 </Connection>
                 <Connection ConnectionName="CollegeFielderGameLog">
@@ -771,6 +793,12 @@ where c.roster_year = 2020</DirectInput>
                 <Connection ConnectionName="CollegePitcherSeasonUC">
                     <Expressions>
                         <Expression ExternalProperty="ConnectionString">@[$Project::UCDirectory] + &quot;\\CollegePitcherSeasonUCTMD.csv&quot;</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="SQLConnection">
+                    <Expressions>
+                        <Expression ExternalProperty="InitialCatalog">@[$Project::DatabaseName]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::ServerName]</Expression>
                     </Expressions>
                 </Connection>
             </Connections>
@@ -987,7 +1015,7 @@ where c.roster_year = 2020</DirectInput>
             <Columns>
                 <Column Name="id" Delimiter="Tab" />
                 <Column Name="source" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
-                <Column Name="source_player_id" Delimiter="Tab" />
+                <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="amateur_player_partial_id" Delimiter="Tab" />
                 <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="amateur_player_id" Delimiter="Tab" />
@@ -1001,7 +1029,7 @@ where c.roster_year = 2020</DirectInput>
                 <Column Name="LEVEL" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="opponent_team_id" Delimiter="Tab" />
                 <Column Name="opponent" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
-                <Column Name="opponent_pitcher_id" Delimiter="Tab" />
+                <Column Name="opponent_pitcher_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="opponent_pitcher" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="g" Delimiter="Tab" />
                 <Column Name="gs" Delimiter="Tab" />
@@ -1056,7 +1084,7 @@ where c.roster_year = 2020</DirectInput>
                 <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
-                <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="ibb_pct" Precision="9" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="uibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="so_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="so_swing_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
@@ -1394,11 +1422,11 @@ where c.roster_year = 2020</DirectInput>
                 <Column Name="pu" Delimiter="Tab" />
                 <Column Name="GO" Delimiter="Tab" />
                 <Column Name="fo" Delimiter="Tab" />
-                <Column Name="go_fo" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="go_fo" Precision="10" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="hr_fb" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="era" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="ra" Precision="6" Scale="3" DataType="Decimal" Delimiter="Tab" />
-                <Column Name="p_pa" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
+                <Column Name="p_pa" Precision="10" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="ab_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="bb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
                 <Column Name="ibb_pct" Precision="5" Scale="4" DataType="Decimal" Delimiter="Tab" />
@@ -1550,7 +1578,7 @@ where c.roster_year = 2020</DirectInput>
                 <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="amateur_player_partial_id" Delimiter="Tab" />
                 <Column Name="oliver_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
-                <Column Name="amateur_player_id" Delimiter="Tab" />
+                <Column Name="amateur_player_id" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
                 <Column Name="amateur_team_id" Delimiter="Tab" />
                 <Column Name="ebis_id" Delimiter="Tab" />
                 <Column Name="name" Length="255" DataType="String" Delimiter="Tab" MaximumWidth="255" />
@@ -1727,6 +1755,17 @@ where c.roster_year = 2020</DirectInput>
                 <Column Name="source" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
                 <Column Name="source_player_id" Length="255" DataType="String" Delimiter="Comma" MaximumWidth="255" />
                 <Column Name="source_url" Length="255" DataType="String" Delimiter="CRLF" MaximumWidth="255" />
+            </Columns>
+        </FlatFileFormat>
+        <FlatFileFormat Name="TEST" CodePage="1252" TextQualifier="_x003C_none_x003E_" ColumnNamesInFirstDataRow="true" RowDelimiter="">
+            <Columns>
+                <Column Name="Flat File Source Error Output Column" Length="-1" DataType="AnsiString" Delimiter="Comma" />
+                <Column Name="ErrorCode" Delimiter="Comma" />
+                <Column Name="ErrorColumn" Delimiter="Comma" />
+                <Column Name="ErrorColumnName" Length="300" DataType="String" Delimiter="Comma" MaximumWidth="300" />
+                <Column Name="ErrorDescription" Length="1000" DataType="String" Delimiter="Comma" MaximumWidth="1000" />
+                <Column Name="RunTime" DataType="Date" Delimiter="Comma" />
+                <Column Name="FileName" Length="500" DataType="String" Delimiter="CRLF" MaximumWidth="500" />
             </Columns>
         </FlatFileFormat>
     </FileFormats>
